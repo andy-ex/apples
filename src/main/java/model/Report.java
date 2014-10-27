@@ -10,7 +10,6 @@ public class Report {
 	private FixedDimension fixedDimension;
 	private DimensionDetails horizontalDimensionDetails;
 	private DimensionDetails verticalDimensionDetails;
-	private Fact fact;
 	private List<ReportRecord> records;
 	
 	
@@ -33,12 +32,6 @@ public class Report {
 	public void setVerticalDimensionDetails(
 			DimensionDetails verticalDimensionDetails) {
 		this.verticalDimensionDetails = verticalDimensionDetails;
-	}
-	public Fact getFact() {
-		return fact;
-	}
-	public void setFact(Fact fact) {
-		this.fact = fact;
 	}
 	public List<ReportRecord> getRecords() {
 		return records;

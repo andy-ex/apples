@@ -52,22 +52,17 @@ public class ApplestoreDAO {
 		return values;
 	}
 	
-	public List<ReportRecord> getReportRecords(Report report) {
+	public List<ReportRecord> getReportRecords(FixedDimension fixed, OrientedDimension hDim, OrientedDimension vDim, Fact fact) {
 		
 		Connection conn = null;
 		Statement stmt = null;
 		
-		List<ReportRecord> values = new ArrayList<ReportRecord>();
+		List<ReportRecord> records = new ArrayList<ReportRecord>();
 		
 		try {
 			Class.forName("org.sqlite.JDBC");
 
             conn = DriverManager.getConnection(databaseUrl);
-			
-			FixedDimension fixed = report.getFixedDimension();
-			OrientedDimension hDim = report.getHorizontalDimensionDetails().getDimension();
-			OrientedDimension vDim = report.getVerticalDimensionDetails().getDimension();
-			Fact fact = report.getFact();
 			
 			stmt = conn.createStatement();
 			String query = "SELECT * FROM " + fact.getName() + " fact " 
@@ -85,6 +80,7 @@ public class ApplestoreDAO {
 				rec.setHorizontalRecord(new DimensionRecord(rs.getLong(fact.getHorizontalDimensionKey()), rs.getString(hDim.getInfoColumnName())));
 				rec.setVerticalRecord(new DimensionRecord(rs.getLong(fact.getVerticalDimensionKey()), rs.getString(vDim.getInfoColumnName())));
 				rec.setFactRecord(new FactRecord(rs.getLong(fixed.getIdName()), rs.getLong(hDim.getIdName()), rs.getLong(vDim.getIdName()), rs.getString(fact.getInfoColumnName())));
+				records.add(rec);
 			}
 				
 		} catch (Exception e) {
@@ -100,7 +96,7 @@ public class ApplestoreDAO {
 		}
 		
 		
-		return null;
+		return records;
 	}
 		
 	

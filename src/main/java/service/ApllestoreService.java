@@ -2,6 +2,7 @@ package service;
 
 import dao.ApplestoreDAO;
 import model.DimensionDetails;
+import model.Fact;
 import model.Report;
 import model.dimension.Dimension;
 import model.dimension.FixedDimension;
@@ -23,7 +24,8 @@ public class ApllestoreService {
         report.setHorizontalDimensionDetails(horizontalDimensionDetails);
         report.setVerticalDimensionDetails(verticalDimensionDetails);
 
-        report.setRecords(applestoreDAO.getReportRecords(report));
+        //TODO create Fact
+        report.setRecords(applestoreDAO.getReportRecords(report.getFixedDimension(), horizontalDimensionDetails.getDimension(), verticalDimensionDetails.getDimension(), new Fact("", "", "", "", "")));
 
         return report;
     }
