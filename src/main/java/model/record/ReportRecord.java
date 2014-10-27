@@ -30,7 +30,7 @@ public class ReportRecord {
 	public FactRecord getFactRecord() {
 		return factRecord;
 	}
-	public void setFact(FactRecord factRecord) {
+	public void setFactRecord(FactRecord factRecord) {
 		this.factRecord = factRecord;
 	}
 	
