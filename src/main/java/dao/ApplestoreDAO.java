@@ -6,6 +6,7 @@ import model.dimension.Dimension;
 import model.dimension.FixedDimension;
 import model.dimension.OrientedDimension;
 import model.record.DimensionRecord;
+import model.record.FactRecord;
 import model.record.ReportRecord;
 
 import java.sql.*;
@@ -83,7 +84,7 @@ public class ApplestoreDAO {
 				rec.setFixedRecord(new DimensionRecord(rs.getLong(fact.getFixedDimensionKey()), rs.getString(fixed.getInfoColumnName())));
 				rec.setHorizontalRecord(new DimensionRecord(rs.getLong(fact.getHorizontalDimensionKey()), rs.getString(hDim.getInfoColumnName())));
 				rec.setVerticalRecord(new DimensionRecord(rs.getLong(fact.getVerticalDimensionKey()), rs.getString(vDim.getInfoColumnName())));
-				//rec.setFact;
+				rec.setFactRecord(new FactRecord(rs.getLong(fixed.getIdName()), rs.getLong(hDim.getIdName()), rs.getLong(vDim.getIdName()), rs.getString(fact.getInfoColumnName())));
 			}
 				
 		} catch (Exception e) {
