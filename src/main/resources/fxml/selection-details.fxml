@@ -15,7 +15,7 @@
       </TableView>
       <TableView layoutX="373.0" layoutY="66.0" prefHeight="429.0" prefWidth="222.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Check" />
+          <TableColumn prefWidth="75.0" text="Check"  />
           <TableColumn prefWidth="75.0" text="Value" />
         </columns>
       </TableView>

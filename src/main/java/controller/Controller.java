@@ -4,21 +4,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
-import javafx.stage.Modality;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.stage.Window;
-import util.FxmlUtils;
+import model.javafx.DimensionSelection;
+import model.record.DimensionRecord;
+import service.ApllestoreService;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -26,18 +23,27 @@ import java.util.ResourceBundle;
  */
 public class Controller implements Initializable {
 
-    Map<String, Scene> viewMap = new HashMap<>();
+    private ApllestoreService applestoreService = new ApllestoreService();
 
     @FXML
     public Node root;
     @FXML
-    public RadioButton apples;
+    public ChoiceBox<DimensionRecord> fixedDimensionChoiceBox;
+    @FXML
+    public TableView<DimensionSelection> horizontalSelection;
+    @FXML
+    public TableView<DimensionSelection> verticalSelection;
+
 
     public void populate(ActionEvent event) throws IOException {
         if (event.getTarget() instanceof RadioButton) {
             String eventText = ((RadioButton) event.getTarget()).getText();
             System.out.println(eventText);
-            System.out.println(apples);
+
+            List<DimensionRecord> fixedDimensionRecords = applestoreService.getFixedDimensionRecords(eventText.toLowerCase());
+            fixedDimensionChoiceBox.getItems().clear();
+            fixedDimensionChoiceBox.getItems().addAll(fixedDimensionRecords);
+            fixedDimensionChoiceBox.getSelectionModel().selectFirst();
         }
     }
 

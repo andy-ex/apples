@@ -33,8 +33,8 @@ public class ApllestoreService {
     public List<DimensionRecord> getFixedDimensionRecords(String fixedDimensionName) {
 
         //TODO load meta-info
-        String infoColumnName = null;
-        String idName = null;
+        String infoColumnName = "sort";
+        String idName = "id";
 
         Dimension dimension = new FixedDimension(fixedDimensionName, infoColumnName, idName);
 

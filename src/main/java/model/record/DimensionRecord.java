@@ -24,4 +24,8 @@ public class DimensionRecord {
 		this.value = value;
 	}
 
+    @Override
+    public String toString() {
+        return String.format("id: %s, value: %s;", id, value);
+    }
 }
