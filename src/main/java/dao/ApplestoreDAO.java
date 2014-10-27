@@ -81,6 +81,9 @@ public class ApplestoreDAO {
 			while (rs.next()) {
 				rec = new ReportRecord();
 				rec.setFixedRecord(new DimensionRecord(rs.getLong(fact.getFixedDimensionKey()), rs.getString(fixed.getInfoColumnName())));
+				rec.setHorizontalRecord(new DimensionRecord(rs.getLong(fact.getHorizontalDimensionKey()), rs.getString(hDim.getInfoColumnName())));
+				rec.setVerticalRecord(new DimensionRecord(rs.getLong(fact.getVerticalDimensionKey()), rs.getString(vDim.getInfoColumnName())));
+				//rec.setFact;
 			}
 				
 		} catch (Exception e) {

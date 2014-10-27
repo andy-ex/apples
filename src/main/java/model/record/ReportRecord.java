@@ -6,7 +6,7 @@ public class ReportRecord {
 	private DimensionRecord horizontalRecord;
 	private DimensionRecord verticalRecord;
 	private DimensionRecord fixedRecord;
-	private FactRecord fact;
+	private FactRecord factRecord;
 	
 	
 	public DimensionRecord getHorizontalRecord() {
@@ -27,11 +27,11 @@ public class ReportRecord {
 	public void setFixedRecord(DimensionRecord fixedRecord) {
 		this.fixedRecord = fixedRecord;
 	}
-	public FactRecord getFact() {
-		return fact;
+	public FactRecord getFactRecord() {
+		return factRecord;
 	}
-	public void setFact(FactRecord fact) {
-		this.fact = fact;
+	public void setFact(FactRecord factRecord) {
+		this.factRecord = factRecord;
 	}
 	
 }
