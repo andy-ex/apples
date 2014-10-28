@@ -1,0 +1,35 @@
+<metadata>
+    <databaseUrl>jdbc:sqlite:C:/temp/applestore.db</databaseUrl>
+	<dimensions>
+		<dimension dimensionName="apples">
+		    <table>
+				<name>apples</name>
+				<idName>id</idName>
+				<infoColumnName>sort</infoColumnName>
+			</table>
+		</dimension>
+		<dimension dimensionName="shops">
+		    <table>
+				<name>shops</name>
+				<idName>id</idName>
+				<infoColumnName>name</infoColumnName>
+			</table>
+		</dimension>
+		<dimension dimensionName="dates">
+		    <table>
+				<name>dates</name>
+				<idName>id</idName>
+				<infoColumnName>date</infoColumnName>
+			</table>
+		</dimension>
+	</dimensions>
+	<fact factName="selling">
+	    <name>selling</name>
+	    <infoColumnName>quantity</infoColumnName>
+		<foreignKeys>
+			<dimensionFK dimensionName="apples">apple_id</dimensionFK>
+			<dimensionFK dimensionName="shops">shop_id</dimensionFK>
+			<dimensionFK dimensionName="dates">date_id</dimensionFK>
+		</foreignKeys>
+	</fact>
+</metadata>
