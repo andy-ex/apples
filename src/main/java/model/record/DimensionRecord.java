@@ -26,6 +26,6 @@ public class DimensionRecord {
 
     @Override
     public String toString() {
-        return String.format("id: %s, value: %s;", id, value);
+    	return value;
     }
 }

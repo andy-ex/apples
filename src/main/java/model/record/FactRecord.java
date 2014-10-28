@@ -47,5 +47,10 @@ public class FactRecord {
 	public void setFact(String fact) {
 		this.fact = fact;
 	}
+	
+	@Override
+	public String toString() {
+	    return fact;
+	}
 
 }

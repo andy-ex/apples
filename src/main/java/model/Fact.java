@@ -1,47 +1,34 @@
 package model;
 
+import java.util.Map;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import jaxb.model.ForeigKeyMapAdapter;
+@XmlRootElement(name = "fact")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Fact {
 
+	@XmlElement
 	private String name;
-	private String horizontalDimensionKey;
-	private String verticalDimensionKey;
-	private String fixedDimensionKey;
+	@XmlElement
 	private String infoColumnName;
+	@XmlJavaTypeAdapter(ForeigKeyMapAdapter.class)
+	@XmlElement(name = "foreignKeys")
+	private Map<String, String> foreignKeysMap;
 	
 	
-	public Fact(String name, String horizontalDimensionKey,
-			String verticalDimensionKey, String fixedDimensionKey,
-			String infoColumnName) {
-		super();
-		this.name = name;
-		this.horizontalDimensionKey = horizontalDimensionKey;
-		this.verticalDimensionKey = verticalDimensionKey;
-		this.fixedDimensionKey = fixedDimensionKey;
-		this.infoColumnName = infoColumnName;
-	}
-	
-	public String getHorizontalDimensionKey() {
-		return horizontalDimensionKey;
+	public Map<String, String> getForeignKeysMap() {
+		return foreignKeysMap;
 	}
 
-	public void setHorizontalDimensionKey(String horizontalDimensionKey) {
-		this.horizontalDimensionKey = horizontalDimensionKey;
-	}
-
-	public String getVerticalDimensionKey() {
-		return verticalDimensionKey;
-	}
-
-	public void setVerticalDimensionKey(String verticalDimensionKey) {
-		this.verticalDimensionKey = verticalDimensionKey;
-	}
-
-	public String getFixedDimensionKey() {
-		return fixedDimensionKey;
-	}
-
-	public void setFixedDimensionKey(String fixedDimensionKey) {
-		this.fixedDimensionKey = fixedDimensionKey;
+	public void setForeignKeysMap(Map<String, String> foreignKey) {
+		this.foreignKeysMap = foreignKey;
+		
 	}
 
 	public String getInfoColumnName() {
@@ -59,6 +46,9 @@ public class Fact {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-
+	
+	public String getForeignKey(String dimensionName) {
+		return foreignKeysMap.get(dimensionName);
+	}
+	
 }

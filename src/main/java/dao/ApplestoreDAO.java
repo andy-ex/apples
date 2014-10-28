@@ -66,9 +66,9 @@ public class ApplestoreDAO {
 			
 			stmt = conn.createStatement();
 			String query = "SELECT * FROM " + fact.getName() + " fact " 
-						+ "join " + fixed.getName() + " f on fact." + fact.getFixedDimensionKey()  + "=f." + fixed.getIdName()
-						+ " join " + hDim.getName() + " h on fact." + fact.getHorizontalDimensionKey() + "=h." + hDim.getIdName()
-						+ " join " + vDim.getName() + " v on fact." + fact.getVerticalDimensionKey() + "=v." + vDim.getIdName()
+						+ "join " + fixed.getName() + " f on fact." + fact.getForeignKey(fixed.getName())  + "=f." + fixed.getIdName()
+						+ " join " + hDim.getName() + " h on fact." + fact.getForeignKey(hDim.getName()) + "=h." + hDim.getIdName()
+						+ " join " + vDim.getName() + " v on fact." + fact.getForeignKey(vDim.getName()) + "=v." + vDim.getIdName()
 						+ " where f." + fixed.getInfoColumnName() + "=\"" + fixed.getFixedValue() + "\";";
 			System.out.println(query);
 			ResultSet rs = stmt.executeQuery(query);
@@ -76,9 +76,9 @@ public class ApplestoreDAO {
 			ReportRecord rec = null;
 			while (rs.next()) {
 				rec = new ReportRecord();
-				rec.setFixedRecord(new DimensionRecord(rs.getLong(fact.getFixedDimensionKey()), rs.getString(fixed.getInfoColumnName())));
-				rec.setHorizontalRecord(new DimensionRecord(rs.getLong(fact.getHorizontalDimensionKey()), rs.getString(hDim.getInfoColumnName())));
-				rec.setVerticalRecord(new DimensionRecord(rs.getLong(fact.getVerticalDimensionKey()), rs.getString(vDim.getInfoColumnName())));
+				rec.setFixedRecord(new DimensionRecord(rs.getLong("f." + fixed.getIdName()), rs.getString(fixed.getInfoColumnName())));
+				rec.setHorizontalRecord(new DimensionRecord(rs.getLong("h." + hDim.getIdName()), rs.getString(hDim.getInfoColumnName())));
+				rec.setVerticalRecord(new DimensionRecord(rs.getLong("v." + vDim.getIdName()), rs.getString(vDim.getInfoColumnName())));
 				rec.setFactRecord(new FactRecord(rs.getLong(fixed.getIdName()), rs.getLong(hDim.getIdName()), rs.getLong(vDim.getIdName()), rs.getString(fact.getInfoColumnName())));
 				records.add(rec);
 			}

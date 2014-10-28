@@ -25,7 +25,7 @@ public class ApllestoreService {
         report.setVerticalDimensionDetails(verticalDimensionDetails);
 
         //TODO create Fact
-        report.setRecords(applestoreDAO.getReportRecords(report.getFixedDimension(), horizontalDimensionDetails.getDimension(), verticalDimensionDetails.getDimension(), new Fact("", "", "", "", "")));
+        //report.setRecords(applestoreDAO.getReportRecords(report.getFixedDimension(), horizontalDimensionDetails.getDimension(), verticalDimensionDetails.getDimension(), ));
 
         return report;
     }
