@@ -1,24 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="566.0" prefWidth="783.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <TableView layoutX="52.0" layoutY="66.0" prefHeight="417.0" prefWidth="198.0">
-        <columns>
-          <TableColumn prefWidth="75.0" text="Check" />
-          <TableColumn prefWidth="75.0" text="Value" />
-        </columns>
-      </TableView>
-      <TableView layoutX="373.0" layoutY="66.0" prefHeight="429.0" prefWidth="222.0">
-        <columns>
-          <TableColumn prefWidth="75.0" text="Check"  />
-          <TableColumn prefWidth="75.0" text="Value" />
-        </columns>
-      </TableView>
-      <Button layoutX="662.0" layoutY="495.0" mnemonicParsing="false" text="OK" />
-   </children>
-</AnchorPane>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="512.0" prefWidth="834.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controller.DetailsController">
+    <children>
+        <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0" VBox.vgrow="ALWAYS">
+            <children>
+                <TableView fx:id="horizontalTableView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+               <columns>
+                  <TableColumn fx:id="horizontalValueColumn" prefWidth="230.0" text="Value" />
+                  <TableColumn fx:id="horizontalIsSelectedColumn" minWidth="50.0" prefWidth="100.0" text="Select" />
+               </columns>
+                </TableView>
+                <TableView fx:id="verticalTableView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+               <columns>
+                  <TableColumn fx:id="verticalValueColumn" prefWidth="180.0" text="Value" />
+                  <TableColumn fx:id="verticalIsSelectedColumn" prefWidth="97.0" text="Select" />
+               </columns></TableView>
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+        </HBox>
+        <HBox alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+            <children>
+                <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#ok" prefWidth="100.0" text="OK" textAlignment="CENTER">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin></Button>
+            </children>
+        </HBox>
+    </children>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+</VBox>

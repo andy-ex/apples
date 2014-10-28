@@ -17,6 +17,7 @@ public class FxmlUtils {
     public static Scene loadScene(String fxmlFile) throws IOException
     {
         FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(FxmlUtils.class.getResource(fxmlFile));
 
         Parent rootNode = (Parent) loader.load(FxmlUtils.class.getResourceAsStream(fxmlFile));
 
@@ -45,6 +46,20 @@ public class FxmlUtils {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public static void showModal(Stage stage) {
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
+    }
+
+    public static Stage createStage(String fxmlFile) throws IOException {
+        Scene scene = loadScene(fxmlFile);
+
+        Stage stage = new Stage();
+        stage.setScene(scene);
+
+        return stage;
     }
 
 }

@@ -45,8 +45,8 @@ public class ApllestoreService {
     public List<DimensionRecord> getOrientedDimensionRecord(String dimensionName, Orientation orientation) {
 
         //TODO load meta-info
-        String infoColumnName = null;
-        String idName = null;
+        String infoColumnName = "sort";
+        String idName = "id";
 
         Dimension dimension = new OrientedDimension(dimensionName, infoColumnName, idName, orientation);
 
