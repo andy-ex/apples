@@ -63,8 +63,8 @@ public class ApllestoreService {
     	return metadata.getDimensionNames();
     }
     
-    public  void saveReport() {
-    	
+    public void saveReport(Report report) {
+    	JAXBBuilder.saveReport(report);
     }
 
 }
