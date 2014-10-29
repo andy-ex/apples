@@ -76,7 +76,7 @@ public class ReportController extends BaseController implements Initializable {
 
             XYChart.Data<String, String> data = new XYChart.Data<>(horizontalValue, verticalValue);
             Label label = new Label(reportRecord.getFactRecord().getFact());
-            label.setStyle("-fx-skin: com.sun.javafx.scene.control.skin.LabelSkin");
+            label.setStyle("-fx-skin: 'com.sun.javafx.scene.control.skin.LabelSkin'");
             data.setNode(label);
 
             series.getData().add(data);
