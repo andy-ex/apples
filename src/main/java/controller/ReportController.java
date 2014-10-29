@@ -10,12 +10,15 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Report;
 import model.record.ReportRecord;
 import model.views.Views;
+import service.ApllestoreService;
 import util.FxmlUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,6 +27,10 @@ import java.util.ResourceBundle;
  * Created by U430p on 29.10.2014.
  */
 public class ReportController extends BaseController implements Initializable {
+
+    ApllestoreService appApllestoreService = new ApllestoreService();
+
+    private Report report;
 
     @FXML
     public ScatterChart<String, String> reportChart;
@@ -51,6 +58,7 @@ public class ReportController extends BaseController implements Initializable {
         //reportChart = new ScatterChart<String, String>(new CategoryAxis(), new CategoryAxis());
 
         //reportChart.getData().addAll(series);
+        this.report = report;
 
         reportChart.getData().clear();
         reportChart.setLegendVisible(false);
@@ -67,7 +75,9 @@ public class ReportController extends BaseController implements Initializable {
             String verticalValue = reportRecord.getVerticalRecord().getValue();
 
             XYChart.Data<String, String> data = new XYChart.Data<>(horizontalValue, verticalValue);
-            data.setNode(new Label(reportRecord.getFactRecord().getFact()));
+            Label label = new Label(reportRecord.getFactRecord().getFact());
+            label.setStyle("-fx-skin: com.sun.javafx.scene.control.skin.LabelSkin");
+            data.setNode(label);
 
             series.getData().add(data);
         }
@@ -81,8 +91,10 @@ public class ReportController extends BaseController implements Initializable {
         setScene(root, getPreviousScene());
     }
 
-    public void save() {
-
+    public void save(ActionEvent event) {
+        //FileChooser fileChooser = new FileChooser();
+        //File file = fileChooser.showSaveDialog(getRootStage(event.getTarget()));
+        appApllestoreService.saveReport(report);
     }
 
     public void main(ActionEvent event) throws IOException {
