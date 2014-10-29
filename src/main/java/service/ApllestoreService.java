@@ -1,56 +1,71 @@
 package service;
 
-import dao.ApplestoreDAO;
+import java.util.List;
+import java.util.Set;
+
+import jaxb.parser.JAXBBuilder;
 import model.DimensionDetails;
-import model.Fact;
+import model.Metadata;
 import model.Report;
 import model.dimension.Dimension;
 import model.dimension.FixedDimension;
 import model.dimension.Orientation;
 import model.dimension.OrientedDimension;
 import model.record.DimensionRecord;
-
-import java.util.List;
+import dao.ApplestoreDAO;
 
 public class ApllestoreService {
 
-    private ApplestoreDAO applestoreDAO = new ApplestoreDAO();
+    private Metadata metadata;
+	private ApplestoreDAO applestoreDAO;
+    
+	public ApllestoreService() {
+		metadata = JAXBBuilder.buildMetadata("metadata.xml");
+		applestoreDAO = new ApplestoreDAO(metadata.getDatabaseUrl());
+	}
 
-    public Report generateReport(FixedDimension fixedDimension,
-                                 DimensionDetails horizontalDimensionDetails,
-                                 DimensionDetails verticalDimensionDetails) {
+    public Report generateReport(DimensionRecord fixedDimRecord,
+                                 DimensionDetails hDimDetails,
+                                 DimensionDetails vDimDetails) {
         Report report = new Report();
-        report.setFixedDimension(fixedDimension);
-        report.setHorizontalDimensionDetails(horizontalDimensionDetails);
-        report.setVerticalDimensionDetails(verticalDimensionDetails);
+        
+        FixedDimension fixedDim = (FixedDimension)metadata.getDimension(fixedDimRecord.getDimensionName());
+        fixedDim.setFixedValue(fixedDimRecord.getValue());
+        report.setFixedDimension(fixedDim);
+        
+        OrientedDimension hDim = (OrientedDimension) metadata.getDimension(hDimDetails.getDimensionName());
+        hDim.setOrientation(hDimDetails.getOrientation());
+        OrientedDimension vDim = (OrientedDimension) metadata.getDimension(vDimDetails.getDimensionName());
+        vDim.setOrientation(vDimDetails.getOrientation());
+        
+        report.setHorizontalDimensionDetails(hDimDetails);
+        report.setVerticalDimensionDetails(vDimDetails);
 
-        //TODO create Fact
-        //report.setRecords(applestoreDAO.getReportRecords(report.getFixedDimension(), horizontalDimensionDetails.getDimension(), verticalDimensionDetails.getDimension(), ));
+        report.setRecords(applestoreDAO.getReportRecords(report.getFixedDimension(), hDimDetails, vDimDetails, metadata.getFact()));
 
         return report;
     }
 
     public List<DimensionRecord> getFixedDimensionRecords(String fixedDimensionName) {
 
-        //TODO load meta-info
-        String infoColumnName = "sort";
-        String idName = "id";
-
-        Dimension dimension = new FixedDimension(fixedDimensionName, infoColumnName, idName);
-
-
-        return applestoreDAO.getDimensionValues(dimension);
+    	Dimension fixedDim = metadata.getDimension(fixedDimensionName);
+        return applestoreDAO.getDimensionValues(fixedDim);
     }
 
     public List<DimensionRecord> getOrientedDimensionRecord(String dimensionName, Orientation orientation) {
 
-        //TODO load meta-info
-        String infoColumnName = "sort";
-        String idName = "id";
+        OrientedDimension orientedDim = (OrientedDimension) metadata.getDimension(dimensionName);
+        orientedDim.setOrientation(orientation);
 
-        Dimension dimension = new OrientedDimension(dimensionName, infoColumnName, idName, orientation);
-
-        return applestoreDAO.getDimensionValues(dimension);
+        return applestoreDAO.getDimensionValues(orientedDim);
+    }
+    
+    public Metadata getMetadata() {
+    	return metadata;
+    }
+    
+    public Set<String> getDimensionNames() {
+    	return metadata.getDimensionNames();
     }
 
 }

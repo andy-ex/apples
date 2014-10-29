@@ -31,8 +31,8 @@ public class Metadata {
 	public Metadata() {
 	}
 	
-	public Map<String, Dimension> getDimensions() {
-		return dimensions;
+	public Dimension getDimension(String universalDimensionName) {
+		return dimensions.get(universalDimensionName);
 	}
 
 	public String getDatabaseUrl() {

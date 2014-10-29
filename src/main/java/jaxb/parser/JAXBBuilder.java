@@ -8,14 +8,14 @@ import javax.xml.bind.Unmarshaller;
 
 import model.Metadata;
 
-public class JAXBParser {
+public class JAXBBuilder {
 
-	public Metadata parseMetadata(String path) {
+	public static Metadata buildMetadata(String path) {
 
 		Metadata metadata = null;
 		 try {
 	 
-			File file = new File("metadata.xml");
+			File file = new File(path);
 			JAXBContext jaxbContext = JAXBContext.newInstance(Metadata.class);
 	 
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();

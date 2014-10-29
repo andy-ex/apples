@@ -16,9 +16,7 @@ public class Launcher extends Application {
 
     public static void main(String[] args) {
         launch(args);
-        ApplestoreDAO dao = new ApplestoreDAO();
-        Dimension dimension = new FixedDimension("apples", "sort", "id");
-        System.out.println(dao.getDimensionValues(dimension).get(0).getValue());
+        
     }
 
     @Override
