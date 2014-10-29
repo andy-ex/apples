@@ -77,7 +77,6 @@ public class ApplestoreDAO {
 						+ " join " + hDimDetails.getDimension().getName() + " h on fact." + fact.getForeignKey(hDimDetails.getDimensionName()) + "=h." + hDimDetails.getDimension().getIdName()
 						+ " join " + vDimDetails.getDimension().getName() + " v on fact." + fact.getForeignKey(vDimDetails.getDimensionName()) + "=v." + vDimDetails.getDimension().getIdName()
 						+ " where f." + fixed.getInfoColumnName() + "=\"" + fixed.getFixedValue() + "\";";
-			System.out.println(query);
 			ResultSet rs = stmt.executeQuery(query);
 			
 			ReportRecord rec = null;
