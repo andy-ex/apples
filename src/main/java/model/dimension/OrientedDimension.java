@@ -15,6 +15,11 @@ public class OrientedDimension extends Dimension {
 		super(name, infoColumnName, idName);
 	}
 	
+	public OrientedDimension(Dimension dimension, Orientation orientation) {
+		super (dimension.name, dimension.infoColumnName, dimension.idName);
+		this.orientation = orientation;
+	}
+	
 
 	public Orientation getOrientation() {
 		return orientation;

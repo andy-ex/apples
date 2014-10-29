@@ -33,11 +33,9 @@ public class ApllestoreService {
         fixedDim.setFixedValue(fixedDimRecord.getValue());
         report.setFixedDimension(fixedDim);
         
-        OrientedDimension hDim = (OrientedDimension) metadata.getDimension(hDimDetails.getDimensionName());
-        hDim.setOrientation(hDimDetails.getOrientation());
-        OrientedDimension vDim = (OrientedDimension) metadata.getDimension(vDimDetails.getDimensionName());
-        vDim.setOrientation(vDimDetails.getOrientation());
-        
+        hDimDetails.setDimension(new OrientedDimension(metadata.getDimension(hDimDetails.getDimensionName()), hDimDetails.getOrientation()));
+        hDimDetails.setDimension(new OrientedDimension(metadata.getDimension(hDimDetails.getDimensionName()), hDimDetails.getOrientation()));
+     
         report.setHorizontalDimensionDetails(hDimDetails);
         report.setVerticalDimensionDetails(vDimDetails);
 
@@ -54,9 +52,7 @@ public class ApllestoreService {
 
     public List<DimensionRecord> getOrientedDimensionRecord(String dimensionName, Orientation orientation) {
 
-        OrientedDimension orientedDim = (OrientedDimension) metadata.getDimension(dimensionName);
-        orientedDim.setOrientation(orientation);
-
+        OrientedDimension orientedDim = new OrientedDimension(metadata.getDimension(dimensionName), orientation);
         return applestoreDAO.getDimensionValues(orientedDim);
     }
     
