@@ -2,17 +2,26 @@ package model;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlElement;
 
 import model.dimension.FixedDimension;
 import model.record.ReportRecord;
 
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.NONE)
 public class Report {
 	
+	@XmlElement
 	private FixedDimension fixedDimension;
+	@XmlElement
 	private DimensionDetails horizontalDimensionDetails;
+	@XmlElement
 	private DimensionDetails verticalDimensionDetails;
+	
+	
 	private List<ReportRecord> records;
 	
 	

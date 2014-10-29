@@ -30,11 +30,10 @@ public class JAXBBuilder {
 		 return metadata;
 	}
 	
-	public static void saveReport(Report report) {
+	public static void saveReport(Report report, File file) {
 
 		 try {
 			  
-				File file = new File("file.xml");
 				JAXBContext jaxbContext = JAXBContext.newInstance(Report.class);
 				Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 		 
@@ -47,6 +46,22 @@ public class JAXBBuilder {
 		  } catch (JAXBException e) {
 				e.printStackTrace();
 		  }
+	}
 	
+	public static Report buildReport(File file) {
+
+		Report report= null;
+		 try {
+	 
+			JAXBContext jaxbContext = JAXBContext.newInstance(Report.class);
+	 
+			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			report = (Report) jaxbUnmarshaller.unmarshal(file);
+	 
+		  } catch (JAXBException e) {
+			e.printStackTrace();
+		  }
+		 
+		 return report;
 	}
 }

@@ -7,13 +7,15 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlAttribute;
+
 
 import model.dimension.Orientation;
 import model.dimension.OrientedDimension;
 
 
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.NONE)
 public class DimensionDetails {
 	
 	@XmlElement
@@ -23,6 +25,7 @@ public class DimensionDetails {
 	@XmlElementWrapper(name = "selection")
 	@XmlElement(name="value")
 	private List<String> selection;
+	@XmlAttribute
 	private Boolean isFull;
 	private OrientedDimension dimension;
 	

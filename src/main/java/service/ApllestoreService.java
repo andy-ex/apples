@@ -1,5 +1,6 @@
 package service;
 
+import java.io.File;
 import java.util.List;
 import java.util.Set;
 
@@ -63,8 +64,12 @@ public class ApllestoreService {
     	return metadata.getDimensionNames();
     }
     
-    public void saveReport(Report report) {
-    	JAXBBuilder.saveReport(report);
+    public void saveReport(Report report, File file) {
+    	JAXBBuilder.saveReport(report, file);
+    }
+    
+    public Report openReport(File file) {
+    	return JAXBBuilder.buildReport(file);
     }
 
 }

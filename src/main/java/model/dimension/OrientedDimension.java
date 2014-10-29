@@ -5,6 +5,9 @@ public class OrientedDimension extends Dimension {
 
 	private Orientation orientation;
 
+	public OrientedDimension() {
+	}
+	
 	public OrientedDimension(String name, String infoColumnName, String idName,
 			Orientation orientation) {
 		super(name, infoColumnName, idName);
