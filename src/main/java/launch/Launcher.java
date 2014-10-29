@@ -21,6 +21,6 @@ public class Launcher extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FxmlUtils.show("/fxml/create-report.fxml", primaryStage, "Main");
+        FxmlUtils.show("/fxml/main.fxml", primaryStage, "Main");
     }
 }

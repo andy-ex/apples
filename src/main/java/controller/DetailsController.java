@@ -41,22 +41,18 @@ public class DetailsController implements Initializable {
     @FXML
     public TableColumn<DimensionSelection, String> verticalValueColumn;
 
-    public void init() {
+    public void init(String horizontal, String vertical) {
 
-        if (horizontalTableView.getItems().size() != 0) {
-            return;
-        }
-
-        List<DimensionRecord> horizontal = applestoreService.getFixedDimensionRecords("apples");// applestoreService.getOrientedDimensionRecord(getHorizontalDimension(), Orientation.HORIZONTAL);
-        List<DimensionRecord> vertical = applestoreService.getFixedDimensionRecords("apples");//applestoreService.getOrientedDimensionRecord(getVerticalDimension(), Orientation.VERTICAL);
+        List<DimensionRecord> horizontalDimensions = applestoreService.getFixedDimensionRecords("apples");// applestoreService.getOrientedDimensionRecord(getHorizontalDimension(), Orientation.HORIZONTAL);
+        List<DimensionRecord> verticalDimensions = applestoreService.getFixedDimensionRecords("apples");//applestoreService.getOrientedDimensionRecord(getVerticalDimension(), Orientation.VERTICAL);
 
         final ObservableList<DimensionSelection> horizontalSelection = FXCollections.observableArrayList();
-        for (DimensionRecord record : horizontal) {
+        for (DimensionRecord record : horizontalDimensions) {
             horizontalSelection.add(new DimensionSelection(record, true));
         }
 
         final ObservableList<DimensionSelection> verticalSelection = FXCollections.observableArrayList();
-        for (DimensionRecord record : vertical) {
+        for (DimensionRecord record : verticalDimensions) {
             verticalSelection.add(new DimensionSelection(record, true));
         }
 
@@ -69,14 +65,6 @@ public class DetailsController implements Initializable {
             Control control = (Control) event.getTarget();
             ((Stage) control.getParent().getScene().getWindow()).setScene(previousScene);
         }
-    }
-
-    private String getHorizontalDimension() {
-        return "shops";
-    }
-
-    private String getVerticalDimension() {
-        return "time";
     }
 
     public TableView<DimensionSelection> getHorizontalTableView() {

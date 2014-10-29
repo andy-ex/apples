@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox spacing="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
+<VBox spacing="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateReportController">
 
     <fx:define>
         <fx:include visible="false" fx:id="details" source="selection-details.fxml"/>
@@ -34,7 +34,7 @@
             <Label text="Fixed value:" />
               <ChoiceBox fx:id="fixedDimensionChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" />
             <Label alignment="CENTER" text="Horizontal:" GridPane.rowIndex="1" />
-            <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ChoiceBox fx:id="horizontalDimensionChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
          <VBox.margin>
             <Insets />
