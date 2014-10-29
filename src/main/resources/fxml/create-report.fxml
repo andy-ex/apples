@@ -12,6 +12,9 @@
     <fx:define>
         <fx:include visible="false" fx:id="details" source="selection-details.fxml"/>
     </fx:define>
+    <fx:define>
+        <fx:include visible="false" fx:id="report" source="report.fxml"/>
+    </fx:define>
 
     <children>
         <RadioButton fx:id="firstRadioButton" layoutX="91.0" layoutY="95.0" mnemonicParsing="false" onAction="#populate">

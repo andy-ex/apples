@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,8 +11,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.DimensionDetails;
 import model.Report;
 import model.dimension.FixedDimension;
+import model.dimension.Orientation;
 import model.javafx.DimensionSelection;
 import model.record.DimensionRecord;
 import model.views.Views;
@@ -34,19 +37,24 @@ public class CreateReportController extends BaseController implements Initializa
     @FXML
     public VBox details;
     @FXML
+    public VBox report;
+
+    @FXML
+    private DetailsController detailsController;
+    @FXML
+    private ReportController reportController;
+
+    @FXML
     public ChoiceBox<DimensionRecord> fixedDimensionChoiceBox;
     @FXML
     private ChoiceBox<String> horizontalDimensionChoiceBox;
-    @FXML
-    private DetailsController detailsController;
+
     @FXML
     RadioButton firstRadioButton;
     @FXML
     RadioButton secondRadioButton;
     @FXML
     RadioButton thirdRadioButton;
-    @FXML
-    ToggleGroup group;
 
     public void populate(ActionEvent event) throws IOException {
         if (event.getTarget() instanceof RadioButton) {
@@ -71,12 +79,40 @@ public class CreateReportController extends BaseController implements Initializa
         }
     }
 
-    public void generate() throws IOException {
+    public void generate(ActionEvent event) throws IOException {
 
-        Report report = new Report();
+        DimensionRecord fixedRecord = fixedDimensionChoiceBox.getValue();
 
-        //FixedDimension fixedDimension = new FixedDimension(fixedDimensionChoiceBox.getS)
+        DimensionDetails horizontalDetails = createDimensionDetails(getHorizontalDimension(), Orientation.HORIZONTAL);
+        DimensionDetails verticalDetails = createDimensionDetails(getVerticalDimension(), Orientation.VERTICAL);
 
+        Report report = applestoreService.generateReport(fixedRecord, horizontalDetails, verticalDetails);
+
+        Stage root = getRootStage(event.getTarget());
+        reportController.createReport(report);
+        setScene(root, getScene(Views.REPORT));
+
+    }
+
+    private DimensionDetails createDimensionDetails(String dimension, Orientation orientation) {
+        DimensionDetails details = new DimensionDetails(dimension, orientation);
+        details.setFull(true);
+        ObservableList<DimensionSelection> items = Orientation.HORIZONTAL.equals(orientation) ?
+                detailsController.getHorizontalTableView().getItems() : detailsController.getVerticalTableView().getItems();
+
+        List<String> selection = new ArrayList<>();
+        for (DimensionSelection item : items) {
+            if (item.getSelected()) {
+                selection.add(item.getDimensionRecord().getValue());
+            } else {
+                details.setFull(false);
+            }
+        }
+        if (!details.isFull()) {
+            details.setSelection(selection);
+        }
+
+        return details;
     }
 
     public void showSelectionDetails(ActionEvent actionEvent) throws IOException {
@@ -116,6 +152,7 @@ public class CreateReportController extends BaseController implements Initializa
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         addScene(Views.SELECTION_DETAILS, new Scene(details));
+        addScene(Views.REPORT, new Scene(report));
 
         dimensions = new ArrayList<>(applestoreService.getDimensionNames());
 
