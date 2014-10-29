@@ -5,6 +5,11 @@ public class FixedDimension extends Dimension {
 
 	private String fixedValue;
 	
+	public FixedDimension(Dimension dimension, String fixedValue) {
+		super (dimension.name, dimension.infoColumnName, dimension.idName);
+		this.fixedValue = fixedValue;
+	}
+	
 	public FixedDimension(String name, String infoColumnName, String idName) {
 		super(name, infoColumnName, idName);
 	}

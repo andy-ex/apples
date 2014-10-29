@@ -29,8 +29,7 @@ public class ApllestoreService {
                                  DimensionDetails vDimDetails) {
         Report report = new Report();
         
-        FixedDimension fixedDim = (FixedDimension)metadata.getDimension(fixedDimRecord.getDimensionName());
-        fixedDim.setFixedValue(fixedDimRecord.getValue());
+        FixedDimension fixedDim = new FixedDimension(metadata.getDimension(fixedDimRecord.getDimensionName()),  (fixedDimRecord.getValue()));
         report.setFixedDimension(fixedDim);
         
         hDimDetails.setDimension(new OrientedDimension(metadata.getDimension(hDimDetails.getDimensionName()), hDimDetails.getOrientation()));
