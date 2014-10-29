@@ -73,11 +73,16 @@ public class ApplestoreDAO {
             conn = DriverManager.getConnection(databaseUrl);
             
 			stmt = conn.createStatement();
+			
+			
 			String query = "SELECT * FROM " + fact.getName() + " fact " 
 						+ "join " + fixed.getName() + " f on fact." + fact.getForeignKey(fixed.getName())  + "=f." + fixed.getIdName()
 						+ " join " + hDimDetails.getDimension().getName() + " h on fact." + fact.getForeignKey(hDimDetails.getDimensionName()) + "=h." + hDimDetails.getDimension().getIdName()
 						+ " join " + vDimDetails.getDimension().getName() + " v on fact." + fact.getForeignKey(vDimDetails.getDimensionName()) + "=v." + vDimDetails.getDimension().getIdName()
-						+ " where f." + fixed.getInfoColumnName() + "=\"" + fixed.getFixedValue() + "\";";
+						+ " where f." + fixed.getInfoColumnName() + "='" + fixed.getFixedValue() + "'" 
+						+ (!hDimDetails.isFull()? (" AND h." + hDimDetails.getDimension().getInfoColumnName() + " in " + hDimDetails.getSelectionAsINExpression()): "") 
+						+ (!vDimDetails.isFull()? (" AND v." + vDimDetails.getDimension().getInfoColumnName() + " in " + vDimDetails.getSelectionAsINExpression()): "")
+						+ ";";
 			ResultSet rs = stmt.executeQuery(query);
 			
 			ReportRecord rec = null;

@@ -10,7 +10,7 @@ public class DimensionDetails {
 	private String dimensionName;
 	private Orientation orientation;
 	private List<String> selection;
-	private Boolean isFull;
+	private Boolean isFull = false;
 	private OrientedDimension dimension;
 	
 
@@ -61,6 +61,18 @@ public class DimensionDetails {
 
 	public void setDimension(OrientedDimension dimension) {
 		this.dimension = dimension;
+	}
+	
+	public String getSelectionAsINExpression() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("(");
+		for (String item : selection) {
+			builder.append("'" + item + "',");
+		}
+		builder.deleteCharAt(builder.length()-1);
+		builder.append(")");
+		
+		return builder.toString();
 	}
 	
 }
