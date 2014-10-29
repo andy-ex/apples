@@ -2,9 +2,12 @@ package model;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import model.dimension.FixedDimension;
 import model.record.ReportRecord;
 
+@XmlRootElement
 public class Report {
 	
 	private FixedDimension fixedDimension;

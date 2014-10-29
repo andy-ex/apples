@@ -62,5 +62,9 @@ public class ApllestoreService {
     public Set<String> getDimensionNames() {
     	return metadata.getDimensionNames();
     }
+    
+    public  void saveReport() {
+    	
+    }
 
 }

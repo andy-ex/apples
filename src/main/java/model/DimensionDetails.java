@@ -2,15 +2,28 @@ package model;
 
 import java.util.List;
 
-import model.dimension.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import model.dimension.Orientation;
+import model.dimension.OrientedDimension;
 
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DimensionDetails {
 	
+	@XmlElement
 	private String dimensionName;
+	@XmlElement
 	private Orientation orientation;
+	@XmlElementWrapper(name = "selection")
+	@XmlElement(name="value")
 	private List<String> selection;
-	private Boolean isFull = false;
+	private Boolean isFull;
 	private OrientedDimension dimension;
 	
 
