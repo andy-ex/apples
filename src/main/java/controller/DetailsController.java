@@ -11,6 +11,7 @@ import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import model.dimension.Orientation;
 import model.javafx.DimensionSelection;
 import model.record.DimensionRecord;
 import service.ApllestoreService;
@@ -40,11 +41,21 @@ public class DetailsController implements Initializable {
     public TableColumn<DimensionSelection, Boolean> verticalIsSelectedColumn;
     @FXML
     public TableColumn<DimensionSelection, String> verticalValueColumn;
+    @FXML
+    public Label horizontalNameLabel;
+    @FXML
+    public Label verticalNameLabel;
 
     public void init(String horizontal, String vertical) {
 
-        List<DimensionRecord> horizontalDimensions = applestoreService.getFixedDimensionRecords("apples");// applestoreService.getOrientedDimensionRecord(getHorizontalDimension(), Orientation.HORIZONTAL);
-        List<DimensionRecord> verticalDimensions = applestoreService.getFixedDimensionRecords("apples");//applestoreService.getOrientedDimensionRecord(getVerticalDimension(), Orientation.VERTICAL);
+        List<DimensionRecord> horizontalDimensions = applestoreService.getOrientedDimensionRecord(horizontal, Orientation.HORIZONTAL);
+        List<DimensionRecord> verticalDimensions = applestoreService.getOrientedDimensionRecord(vertical, Orientation.VERTICAL);
+
+        horizontalNameLabel.setText(horizontal);
+        verticalNameLabel.setText(vertical);
+
+        horizontalTableView.getItems().clear();
+        verticalTableView.getItems().clear();
 
         final ObservableList<DimensionSelection> horizontalSelection = FXCollections.observableArrayList();
         for (DimensionRecord record : horizontalDimensions) {

@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableView;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Report;
@@ -27,9 +28,8 @@ public class CreateReportController extends BaseController implements Initializa
 
     private ApllestoreService applestoreService = new ApllestoreService();
 
-    List<String> dimensions = new ArrayList<>(Arrays.asList("apples", "shops", "dates"));
-
-    private Scene previousScene;
+    private List<String> dimensions;
+    private boolean updateDetails = true;
 
     @FXML
     public VBox details;
@@ -39,6 +39,14 @@ public class CreateReportController extends BaseController implements Initializa
     private ChoiceBox<String> horizontalDimensionChoiceBox;
     @FXML
     private DetailsController detailsController;
+    @FXML
+    RadioButton firstRadioButton;
+    @FXML
+    RadioButton secondRadioButton;
+    @FXML
+    RadioButton thirdRadioButton;
+    @FXML
+    ToggleGroup group;
 
     public void populate(ActionEvent event) throws IOException {
         if (event.getTarget() instanceof RadioButton) {
@@ -58,6 +66,8 @@ public class CreateReportController extends BaseController implements Initializa
                 }
             }
             horizontalDimensionChoiceBox.getSelectionModel().selectFirst();
+
+            updateDetails = true;
         }
     }
 
@@ -71,9 +81,11 @@ public class CreateReportController extends BaseController implements Initializa
 
     public void showSelectionDetails(ActionEvent actionEvent) throws IOException {
         Stage root = getRootStage(actionEvent.getTarget());
-        previousScene = root.getScene();
-        detailsController.init(getHorizontalDimension(), getVerticalDimension());
-        detailsController.setPreviousScene(previousScene);
+        if (updateDetails) {
+            detailsController.init(getHorizontalDimension(), getVerticalDimension());
+            updateDetails = false;
+        }
+        detailsController.setPreviousScene(root.getScene());
         setScene(root, getScene(Views.SELECTION_DETAILS));
     }
 
@@ -88,7 +100,7 @@ public class CreateReportController extends BaseController implements Initializa
 
     private String getVerticalDimension() {
         String horizontal = horizontalDimensionChoiceBox.getSelectionModel().getSelectedItem();
-        String fixed = fixedDimensionChoiceBox.getSelectionModel().getSelectedItem().getValue();
+        String fixed = fixedDimensionChoiceBox.getSelectionModel().getSelectedItem().getDimensionName();
         for (String dimension : dimensions) {
             if (!horizontal.equals(dimension) && !fixed.equals(dimension)) {
                 return dimension;
@@ -97,9 +109,20 @@ public class CreateReportController extends BaseController implements Initializa
         return null;
     }
 
+    public void setDimensions(List<String> dimensions) {
+        this.dimensions = dimensions;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         addScene(Views.SELECTION_DETAILS, new Scene(details));
+
+        dimensions = new ArrayList<>(applestoreService.getDimensionNames());
+
+        firstRadioButton.setText(dimensions.get(0));
+        secondRadioButton.setText(dimensions.get(1));
+        thirdRadioButton.setText(dimensions.get(2));
+
     }
 
 }
