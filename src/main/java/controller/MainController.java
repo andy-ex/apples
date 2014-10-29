@@ -21,7 +21,11 @@ public class MainController extends BaseController implements Initializable {
     @FXML
     public VBox createReport;
     @FXML
+    public VBox openReport;
+    @FXML
     public CreateReportController createReportController;
+    @FXML
+    public OpenReportController openReportController;
 
     public void createReport(ActionEvent event) {
         Stage root = getRootStage(event.getTarget());
@@ -30,8 +34,9 @@ public class MainController extends BaseController implements Initializable {
         setScene(root, scene);
     }
 
-    public void openReport() {
-
+    public void openReport(ActionEvent event) {
+        Stage root = getRootStage(event.getTarget());
+        setScene(root, getScene(Views.OPEN_REPORT));
     }
 
     public void exit() {
@@ -41,5 +46,6 @@ public class MainController extends BaseController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         addScene(Views.CREATE_REPORT, new Scene(createReport));
+        addScene(Views.OPEN_REPORT, new Scene(openReport));
     }
 }

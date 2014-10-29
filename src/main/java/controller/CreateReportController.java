@@ -90,6 +90,7 @@ public class CreateReportController extends BaseController implements Initializa
 
         Stage root = getRootStage(event.getTarget());
         reportController.createReport(report);
+        reportController.setPreviousScene(root.getScene());
         setScene(root, getScene(Views.REPORT));
 
     }

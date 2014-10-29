@@ -4,26 +4,24 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-      fx:id="main" fx:controller="controller.MainController">
+<VBox fx:id="main" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
 
     <fx:define>
         <fx:include fx:id="createReport" visible="false" source="create-report.fxml"/>
+        <fx:include fx:id="openReport" visible="false" source="open-report.fxml"/>
     </fx:define>
 
     <children>
-        <ToolBar>
-            <items>
-                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Create report"
-                        textAlignment="CENTER"
-                        onAction="#createReport"/>
-                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Open report"
-                        textAlignment="CENTER" onAction="#openReport"/>
-                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="39.0"
-                        prefWidth="113.0" text="Exit" textAlignment="CENTER" onAction="#exit"/>
-            </items>
-        </ToolBar>
+      <HBox alignment="CENTER">
+         <children>
+              <ToolBar>
+                  <items>
+                      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#createReport" text="Create report" textAlignment="CENTER" />
+                      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#openReport" text="Open report" textAlignment="CENTER" />
+                      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#exit" prefHeight="39.0" prefWidth="113.0" text="Exit" textAlignment="CENTER" />
+                  </items>
+              </ToolBar>
+         </children>
+      </HBox>
     </children>
 </VBox>
