@@ -33,7 +33,7 @@ public class ApllestoreService {
         report.setFixedDimension(fixedDim);
         
         hDimDetails.setDimension(new OrientedDimension(metadata.getDimension(hDimDetails.getDimensionName()), hDimDetails.getOrientation()));
-        hDimDetails.setDimension(new OrientedDimension(metadata.getDimension(hDimDetails.getDimensionName()), hDimDetails.getOrientation()));
+        vDimDetails.setDimension(new OrientedDimension(metadata.getDimension(vDimDetails.getDimensionName()), vDimDetails.getOrientation()));
      
         report.setHorizontalDimensionDetails(hDimDetails);
         report.setVerticalDimensionDetails(vDimDetails);
