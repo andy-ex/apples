@@ -38,7 +38,7 @@ public class ApllestoreService {
         report.setHorizontalDimensionDetails(hDimDetails);
         report.setVerticalDimensionDetails(vDimDetails);
 
-        report.setRecords(applestoreDAO.getReportRecords(report.getFixedDimension(), hDimDetails, vDimDetails, metadata.getFact()));
+        report.setRecords(applestoreDAO.getReportRecords(fixedDimRecord.getDimensionName(), report.getFixedDimension(), hDimDetails, vDimDetails, metadata.getFact()));
 
         return report;
     }

@@ -60,7 +60,7 @@ public class ApplestoreDAO {
 		return values;
 	}
 	
-	public List<ReportRecord> getReportRecords(FixedDimension fixed, DimensionDetails hDimDetails, DimensionDetails vDimDetails, Fact fact) {
+	public List<ReportRecord> getReportRecords(String fixedDimensionName, FixedDimension fixed, DimensionDetails hDimDetails, DimensionDetails vDimDetails, Fact fact) {
 		
 		Connection conn = null;
 		Statement stmt = null;
@@ -88,10 +88,10 @@ public class ApplestoreDAO {
 			ReportRecord rec = null;
 			while (rs.next()) {
 				rec = new ReportRecord();
-				rec.setFixedRecord(new DimensionRecord(rs.getLong("f." + fixed.getIdName()), rs.getString(fixed.getInfoColumnName())));
-				rec.setHorizontalRecord(new DimensionRecord(rs.getLong("h." + hDimDetails.getDimension().getIdName()), rs.getString(hDimDetails.getDimension().getInfoColumnName())));
-				rec.setVerticalRecord(new DimensionRecord(rs.getLong("v." + vDimDetails.getDimension().getIdName()), rs.getString(vDimDetails.getDimension().getInfoColumnName())));
-				rec.setFactRecord(new FactRecord(rs.getLong(fixed.getIdName()), rs.getLong(hDimDetails.getDimension().getIdName()), rs.getLong(vDimDetails.getDimension().getIdName()), rs.getString(fact.getInfoColumnName())));
+				rec.setFixedRecord(new DimensionRecord(rs.getLong(fact.getForeignKey(fixedDimensionName)), rs.getString(fixed.getInfoColumnName())));
+				rec.setHorizontalRecord(new DimensionRecord(rs.getLong(fact.getForeignKey(hDimDetails.getDimensionName())), rs.getString(hDimDetails.getDimension().getInfoColumnName())));
+				rec.setVerticalRecord(new DimensionRecord(rs.getLong(fact.getForeignKey(vDimDetails.getDimensionName())), rs.getString(vDimDetails.getDimension().getInfoColumnName())));
+				rec.setFactRecord(new FactRecord(rs.getLong(fact.getForeignKey(fixedDimensionName)), rs.getLong(fact.getForeignKey(hDimDetails.getDimensionName())), rs.getLong(fact.getForeignKey(vDimDetails.getDimensionName())), rs.getString(fact.getInfoColumnName())));
 				records.add(rec);
 			}
 				
