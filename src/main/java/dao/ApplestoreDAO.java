@@ -24,7 +24,7 @@ public class ApplestoreDAO {
     	databaseUrl = dbUrl; 
     }
 
-	public List<DimensionRecord> getDimensionValues(Dimension dim) {
+	public List<DimensionRecord> getDimensionValues(String universalDimensionName, Dimension dim) {
 		
 		Connection conn = null;
 		Statement stmt = null;
@@ -41,6 +41,7 @@ public class ApplestoreDAO {
 			while (rs.next()) {
                 String dimensionValue = rs.getString(dim.getInfoColumnName());
                 DimensionRecord record = new DimensionRecord(rs.getLong(dim.getIdName()), dimensionValue);
+                record.setDimensionName(universalDimensionName);
                 values.add(record);
 			}
 			

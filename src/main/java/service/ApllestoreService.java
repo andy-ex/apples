@@ -47,13 +47,13 @@ public class ApllestoreService {
     public List<DimensionRecord> getFixedDimensionRecords(String fixedDimensionName) {
 
     	Dimension fixedDim = metadata.getDimension(fixedDimensionName);
-        return applestoreDAO.getDimensionValues(fixedDim);
+        return applestoreDAO.getDimensionValues(fixedDimensionName, fixedDim);
     }
 
     public List<DimensionRecord> getOrientedDimensionRecord(String dimensionName, Orientation orientation) {
 
         OrientedDimension orientedDim = new OrientedDimension(metadata.getDimension(dimensionName), orientation);
-        return applestoreDAO.getDimensionValues(orientedDim);
+        return applestoreDAO.getDimensionValues(dimensionName, orientedDim);
     }
     
     public Metadata getMetadata() {
