@@ -19,7 +19,7 @@
       </ScatterChart>
       <HBox alignment="TOP_RIGHT" spacing="20.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#back" text="Back" />
+            <Button mnemonicParsing="false" onAction="#back" text="Edit" />
             <Button mnemonicParsing="false" onAction="#save" text="Save" />
             <Button mnemonicParsing="false" onAction="#main" text="Go to main" />
          </children>

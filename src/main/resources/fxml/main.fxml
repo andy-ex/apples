@@ -9,6 +9,7 @@
     <fx:define>
         <fx:include fx:id="createReport" visible="false" source="create-report.fxml"/>
         <fx:include fx:id="openReport" visible="false" source="open-report.fxml"/>
+        <fx:include fx:id="report" visible="false" source="report.fxml"/>
     </fx:define>
 
     <children>

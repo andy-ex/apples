@@ -7,18 +7,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.TableView;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.DimensionDetails;
 import model.Report;
-import model.dimension.FixedDimension;
 import model.dimension.Orientation;
 import model.javafx.DimensionSelection;
 import model.record.DimensionRecord;
 import model.views.Views;
-import service.ApllestoreService;
+import service.ApplestoreService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,7 +26,7 @@ import java.util.*;
  */
 public class CreateReportController extends BaseController implements Initializable {
 
-    private ApllestoreService applestoreService = new ApllestoreService();
+    private ApplestoreService applestoreService = new ApplestoreService();
 
     private List<String> dimensions;
     private boolean updateDetails = true;
@@ -56,27 +53,35 @@ public class CreateReportController extends BaseController implements Initializa
     @FXML
     RadioButton thirdRadioButton;
 
+    public void init(Report report) {
+
+    }
+
     public void populate(ActionEvent event) throws IOException {
         if (event.getTarget() instanceof RadioButton) {
             String eventText = ((RadioButton) event.getTarget()).getText();
             System.out.println(eventText);
 
             String fixedDimensionName = eventText.toLowerCase();
-            List<DimensionRecord> fixedDimensionRecords = applestoreService.getFixedDimensionRecords(fixedDimensionName);
-            fixedDimensionChoiceBox.getItems().clear();
-            fixedDimensionChoiceBox.getItems().addAll(fixedDimensionRecords);
-            fixedDimensionChoiceBox.getSelectionModel().selectFirst();
-
-            horizontalDimensionChoiceBox.getItems().clear();
-            for (String dimension : dimensions) {
-                if (!dimension.equals(fixedDimensionName)) {
-                    horizontalDimensionChoiceBox.getItems().add(dimension);
-                }
-            }
-            horizontalDimensionChoiceBox.getSelectionModel().selectFirst();
-
-            updateDetails = true;
+            populateChoiceBoxes(fixedDimensionName);
         }
+    }
+
+    private void populateChoiceBoxes(String fixedDimensionName) {
+        List<DimensionRecord> fixedDimensionRecords = applestoreService.getFixedDimensionRecords(fixedDimensionName);
+        fixedDimensionChoiceBox.getItems().clear();
+        fixedDimensionChoiceBox.getItems().addAll(fixedDimensionRecords);
+        fixedDimensionChoiceBox.getSelectionModel().selectFirst();
+
+        horizontalDimensionChoiceBox.getItems().clear();
+        for (String dimension : dimensions) {
+            if (!dimension.equals(fixedDimensionName)) {
+                horizontalDimensionChoiceBox.getItems().add(dimension);
+            }
+        }
+        horizontalDimensionChoiceBox.getSelectionModel().selectFirst();
+
+        updateDetails = true;
     }
 
     public void generate(ActionEvent event) throws IOException {
@@ -148,6 +153,40 @@ public class CreateReportController extends BaseController implements Initializa
 
     public void setDimensions(List<String> dimensions) {
         this.dimensions = dimensions;
+    }
+
+    public void initWithReport(Report report) {
+        String fixedDimensionName = report.getFixedDimension().getName();
+
+        if (fixedDimensionName.equals(firstRadioButton.getText())) {
+            firstRadioButton.setSelected(true);
+        } else if (fixedDimensionName.equals(secondRadioButton.getText())) {
+            secondRadioButton.setSelected(true);
+        } else {
+            thirdRadioButton.setSelected(true);
+        }
+        populateChoiceBoxes(fixedDimensionName);
+
+        ObservableList<DimensionRecord> fixedDimensionValues = fixedDimensionChoiceBox.getItems();
+        for (DimensionRecord fixedDimensionValue : fixedDimensionValues) {
+            if (report.getFixedDimension().getFixedValue().equals(fixedDimensionValue.getValue())) {
+                fixedDimensionChoiceBox.getSelectionModel().select(fixedDimensionValue);
+            }
+        }
+
+        horizontalDimensionChoiceBox.getSelectionModel().select(report.getHorizontalDimensionDetails().getDimensionName());
+
+        detailsController.init(getHorizontalDimension(), getVerticalDimension());
+
+        if (!report.getHorizontalDimensionDetails().isFull()) {
+            detailsController.updateHorizontalSelection(report.getHorizontalDimensionDetails());
+        }
+        if (!report.getVerticalDimensionDetails().isFull()) {
+            detailsController.updateVerticalSelection(report.getVerticalDimensionDetails());
+        }
+
+        updateDetails = false;
+
     }
 
     @Override

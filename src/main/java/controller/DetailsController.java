@@ -11,10 +11,11 @@ import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import model.DimensionDetails;
 import model.dimension.Orientation;
 import model.javafx.DimensionSelection;
 import model.record.DimensionRecord;
-import service.ApllestoreService;
+import service.ApplestoreService;
 
 import java.net.URL;
 import java.util.List;
@@ -25,7 +26,7 @@ import java.util.ResourceBundle;
  */
 public class DetailsController implements Initializable {
 
-    private ApllestoreService applestoreService = new ApllestoreService();
+    private ApplestoreService applestoreService = new ApplestoreService();
 
     private Scene previousScene;
 
@@ -76,6 +77,28 @@ public class DetailsController implements Initializable {
             Control control = (Control) event.getTarget();
             ((Stage) control.getParent().getScene().getWindow()).setScene(previousScene);
         }
+    }
+
+    public void updateHorizontalSelection(DimensionDetails details) {
+        updateSelection(horizontalTableView, details);
+    }
+
+    public void updateVerticalSelection(DimensionDetails details) {
+        updateSelection(verticalTableView, details);
+    }
+
+    private void updateSelection(TableView<DimensionSelection> table, DimensionDetails details) {
+        ObservableList<DimensionSelection> items = table.getItems();
+        List<String> selection = details.getSelection();
+        for (DimensionSelection item : items) {
+            if (selection.contains(item.getDimensionRecord().getValue())) {
+                item.setSelected(true);
+            } else {
+                item.setSelected(false);
+            }
+        }
+//        table.getItems().clear();
+//        table.getItems().addAll(items);
     }
 
     public TableView<DimensionSelection> getHorizontalTableView() {

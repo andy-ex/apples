@@ -15,12 +15,12 @@ import model.dimension.OrientedDimension;
 import model.record.DimensionRecord;
 import dao.ApplestoreDAO;
 
-public class ApllestoreService {
+public class ApplestoreService {
 
     private Metadata metadata;
 	private ApplestoreDAO applestoreDAO;
     
-	public ApllestoreService() {
+	public ApplestoreService() {
 		metadata = JAXBBuilder.buildMetadata("metadata.xml");
 		applestoreDAO = new ApplestoreDAO(metadata.getDatabaseUrl());
 	}

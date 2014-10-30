@@ -1,12 +1,8 @@
 package controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.LineChart;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
@@ -15,7 +11,7 @@ import javafx.stage.Stage;
 import model.Report;
 import model.record.ReportRecord;
 import model.views.Views;
-import service.ApllestoreService;
+import service.ApplestoreService;
 import util.FxmlUtils;
 
 import java.io.File;
@@ -28,7 +24,7 @@ import java.util.ResourceBundle;
  */
 public class ReportController extends BaseController implements Initializable {
 
-    ApllestoreService appApllestoreService = new ApllestoreService();
+    ApplestoreService appApplestoreService = new ApplestoreService();
 
     private Report report;
 
@@ -92,9 +88,11 @@ public class ReportController extends BaseController implements Initializable {
     }
 
     public void save(ActionEvent event) {
-        //FileChooser fileChooser = new FileChooser();
-        //File file = fileChooser.showSaveDialog(getRootStage(event.getTarget()));
-        appApllestoreService.saveReport(report);
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File("C:\\Users\\U430p\\Desktop\\ск"));
+        fileChooser.setInitialFileName("report.xml");
+        File file = fileChooser.showSaveDialog(getRootStage(event.getTarget()));
+        appApplestoreService.saveReport(report, file);
     }
 
     public void main(ActionEvent event) throws IOException {
