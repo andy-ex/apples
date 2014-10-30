@@ -51,15 +51,17 @@ public class MainController extends BaseController implements Initializable {
         File file = fileChooser.showOpenDialog(getRootStage(event.getTarget()));
 
         Report report = applestoreService.openReport(file);
+        report = applestoreService.generateReport(report.getFixedDimensionRecord(), report.getHorizontalDimensionDetails(), report.getVerticalDimensionDetails());
 
         Stage root = getRootStage(event.getTarget());
         createReportController.initWithReport(report);
+        reportController.createReport(report);
         reportController.setPreviousScene(getScene(Views.CREATE_REPORT));
         setScene(root, getScene(Views.REPORT));
     }
 
-    public void exit() {
-        System.out.println("exit");
+    public void exit(ActionEvent event) {
+        getRootStage(event.getTarget()).close();
     }
 
     @Override

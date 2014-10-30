@@ -1,13 +1,27 @@
 package model.record;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.NONE)
 public class DimensionRecord {
-	
+
+    @XmlElement
 	private String dimensionName;
 	private long id;
+    @XmlElement
 	private String value;
 
 	public DimensionRecord() {
 	}
+
+    public DimensionRecord(String dimensionName, String value) {
+        this.dimensionName = dimensionName;
+        this.value = value;
+    }
 	
 	public DimensionRecord(long id, String value) {
 		super();

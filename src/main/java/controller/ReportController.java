@@ -90,6 +90,7 @@ public class ReportController extends BaseController implements Initializable {
     public void save(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File("C:\\Users\\U430p\\Desktop\\ск"));
+        fileChooser.setInitialDirectory(new File("C:\\Users\\U430p\\Desktop\\ск"));
         fileChooser.setInitialFileName("report.xml");
         File file = fileChooser.showSaveDialog(getRootStage(event.getTarget()));
         appApplestoreService.saveReport(report, file);

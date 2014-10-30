@@ -85,6 +85,7 @@ public class CreateReportController extends BaseController implements Initializa
     }
 
     public void generate(ActionEvent event) throws IOException {
+        detailsController.swap(getHorizontalDimension(), getVerticalDimension());
 
         DimensionRecord fixedRecord = fixedDimensionChoiceBox.getValue();
 
@@ -122,6 +123,7 @@ public class CreateReportController extends BaseController implements Initializa
     }
 
     public void showSelectionDetails(ActionEvent actionEvent) throws IOException {
+        //detailsController.swap(getHorizontalDimension(), getVerticalDimension());
         Stage root = getRootStage(actionEvent.getTarget());
         if (updateDetails) {
             detailsController.init(getHorizontalDimension(), getVerticalDimension());

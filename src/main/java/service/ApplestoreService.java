@@ -32,6 +32,7 @@ public class ApplestoreService {
         
         FixedDimension fixedDim = new FixedDimension(metadata.getDimension(fixedDimRecord.getDimensionName()),  (fixedDimRecord.getValue()));
         report.setFixedDimension(fixedDim);
+        report.setFixedDimensionRecord(fixedDimRecord);
         
         hDimDetails.setDimension(new OrientedDimension(metadata.getDimension(hDimDetails.getDimensionName()), hDimDetails.getOrientation()));
         vDimDetails.setDimension(new OrientedDimension(metadata.getDimension(vDimDetails.getDimensionName()), vDimDetails.getOrientation()));

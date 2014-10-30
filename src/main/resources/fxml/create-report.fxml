@@ -11,8 +11,6 @@
 
     <fx:define>
         <fx:include visible="false" fx:id="details" source="selection-details.fxml"/>
-    </fx:define>
-    <fx:define>
         <fx:include visible="false" fx:id="report" source="report.fxml"/>
     </fx:define>
 

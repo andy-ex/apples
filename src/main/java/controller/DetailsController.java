@@ -48,6 +48,7 @@ public class DetailsController implements Initializable {
     public Label verticalNameLabel;
 
     public void init(String horizontal, String vertical) {
+        swap(horizontal, vertical);
 
         List<DimensionRecord> horizontalDimensions = applestoreService.getOrientedDimensionRecord(horizontal, Orientation.HORIZONTAL);
         List<DimensionRecord> verticalDimensions = applestoreService.getOrientedDimensionRecord(vertical, Orientation.VERTICAL);
@@ -70,6 +71,21 @@ public class DetailsController implements Initializable {
 
         horizontalTableView.getItems().addAll(horizontalSelection);
         verticalTableView.getItems().addAll(verticalSelection);
+    }
+
+    public void swap(String horizontal, String vertical) {
+        if (horizontalNameLabel.getText().equals(horizontal)) {
+            return;
+        }
+        ObservableList<DimensionSelection> temp = FXCollections.observableArrayList(horizontalTableView.getItems());
+        horizontalTableView.getItems().clear();
+        horizontalTableView.getItems().addAll(FXCollections.observableArrayList(verticalTableView.getItems()));
+
+        verticalTableView.getItems().clear();
+        verticalTableView.getItems().addAll(temp);
+
+        horizontalNameLabel.setText(horizontal);
+        verticalNameLabel.setText(vertical);
     }
 
     public void ok(ActionEvent event) {
@@ -97,8 +113,6 @@ public class DetailsController implements Initializable {
                 item.setSelected(false);
             }
         }
-//        table.getItems().clear();
-//        table.getItems().addAll(items);
     }
 
     public TableView<DimensionSelection> getHorizontalTableView() {
