@@ -1,5 +1,5 @@
 <metadata>
-    <databaseUrl>jdbc:sqlite:C:/temp/applestore.db</databaseUrl>
+    <databaseUrl>jdbc:sqlite:E:/projects/bsu/apples/applestore.db</databaseUrl>
 	<dimensions>
 		<dimension dimensionName="apples">
 		    <table>
